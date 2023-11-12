@@ -1,32 +1,19 @@
-public class MemberReguler extends Member implements CanGetDiskon{
+public class MemberReguler extends Member{
 
-    public MemberReguler (){
-        super();
-    }
-
-    public Integer getPoin(){
-        return poin;
-    }
+    @Override
+    public Integer hitungTotalBayar(Integer jumlahBelanja) {
+        if (jumlahBelanja >= 500000 && jumlahBelanja <= 1000000){
+            this.totalBayar = jumlahBelanja - (jumlahBelanja * 1/100); }
+        else if (jumlahBelanja > 1000000 && jumlahBelanja <= 7000000){
+            this.totalBayar = jumlahBelanja - (jumlahBelanja * 2/100); }
+        else if (jumlahBelanja > 7000000){
+            this.totalBayar = jumlahBelanja - (jumlahBelanja * 3/100); }
+        else {
+            this.totalBayar = jumlahBelanja; }
     
-    @Override //Polymorphism
-    public Integer hitungTotalBayar (Integer totalBelanja){
-        if (totalBelanja < 500000){
-            totalBelanja = totalBelanja - totalBelanja*0/100;
-            poin += totalBelanja /10000;
-        }
-        else if (totalBelanja <= 1000000){
-            totalBelanja = totalBelanja - totalBelanja*1/100;
-            poin += totalBelanja /10000;
-        }
-        else if (totalBelanja <= 7000000){
-            totalBelanja = totalBelanja - totalBelanja*2/100;
-            poin += totalBelanja /10000;
-        }
-        else if (totalBelanja > 7000000){
-            totalBelanja = totalBelanja - totalBelanja*3/100;
-            poin += totalBelanja /10000;
-        }
-        return totalBelanja;
-
+        return this.totalBayar;
     }
+
+    
 }
+

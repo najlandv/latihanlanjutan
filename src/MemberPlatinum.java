@@ -1,67 +1,58 @@
-public class MemberPlatinum extends Member implements CanGetDiskon, CanRequestDelivery, CanRequestCicilan, CanDeposit{
-    private Integer saldo = 0;
-    
-    public MemberPlatinum (){
-        super();
+public class MemberPlatinum extends Member implements CanDeposit, CanRequestCicilan, CanRequestDelivery {
+    Integer saldo = 0;
+
+    @Override
+    public Integer deposit(Integer jumlahDeposit) {
+        this.saldo = this.saldo + jumlahDeposit;
+        return this.saldo;
     }
 
-    @Override //Polymorphism
-    public Integer hitungTotalBayar (Integer totalBelanja){
-        if (totalBelanja < 500000){
-            totalBelanja = totalBelanja - totalBelanja*0/100;
-            poin += totalBelanja /10000;
-        }
-        else if (totalBelanja <= 1000000){
-            totalBelanja = totalBelanja - totalBelanja*3/100;
-            poin += totalBelanja /10000;
-        }
-        else if (totalBelanja <= 7000000){
-            totalBelanja = totalBelanja - totalBelanja*5/100;
-            poin += totalBelanja /10000;
-        }
-        else if (totalBelanja <= 10000000){
-            totalBelanja = totalBelanja - (int) Math.floor(totalBelanja*0.070000125);
-            poin += totalBelanja /10000;
-        }
-        else if (totalBelanja > 10000000){
-            totalBelanja = totalBelanja - (int) Math.floor(totalBelanja*0.07);
-            poin += totalBelanja /10000;
-        }
-        return totalBelanja;
+    @Override
+    public Integer tarikTunai(Integer jumlahTarikTunai) {
+        this.saldo = this.saldo - jumlahTarikTunai;
+        return this.saldo;
     }
 
-    @Override //Polymorphism
-    public Double hitungOngkir (Double jarakTujuan){
-        double ongkir = 0.0;
-        if (jarakTujuan < 10){
-            ongkir = 0;
-        }
-        else if (jarakTujuan >= 7){
-            ongkir = 1000*(Math.ceil(jarakTujuan)-10);
-        }
-        return ongkir;
-    }
-    
-    @Override //Polymorphism
-    public Integer hitungCicilanPerBulan (Integer totalBelanja, Integer jumlahBulan){
-        jumlahBulan = 12;
-        if (totalBelanja > 2500000){
-            return totalBelanja/jumlahBulan;
-        }
-        return 0;
+    @Override
+    public Integer getSaldo() {
+        return getSaldo();
     }
 
-    @Override //Polymorphism
-    public Integer deposit (Integer jumlahDeposit){
-        this.saldo += jumlahDeposit;
-        return saldo;
+    public Integer cekSaldo(){
+        return this.saldo;
     }
-    public Integer tarikTunai (Integer jumlahTarikTunai){
-        this.saldo -= jumlahTarikTunai;
-        return saldo;
+
+    @Override
+    public Integer hitungTotalBayar(Integer jumlahBelanja) {
+        if (jumlahBelanja >= 500000 && jumlahBelanja <= 1000000) {
+            this.totalBayar = jumlahBelanja - (jumlahBelanja * 3 / 100) ;
+        } else if (jumlahBelanja > 1000000 && jumlahBelanja <= 7000000) {
+            this.totalBayar = jumlahBelanja - (jumlahBelanja * 5 / 100);
+        } else if (jumlahBelanja > 7000000 && jumlahBelanja <= 10000000) {
+            this.totalBayar = jumlahBelanja - (jumlahBelanja * 7 / 100) - 1;
+        } else if (jumlahBelanja > 10000000) {
+            this.totalBayar = jumlahBelanja - (jumlahBelanja * 7 / 100);
+        } else {
+            this.totalBayar = jumlahBelanja;
+        }
+        
+        return this.totalBayar;
     }
-    public Integer cekSaldo (){
-        return saldo;
+
+    @Override
+    public Integer hitungCicilanPerBulan(Integer totalBelanja, Integer jumlahBulan) {
+        return hitungCicilanPerBulan(totalBelanja, jumlahBulan);
+    }
+
+    @Override
+    public Double hitungOngkir(Double jarakTujuan) {
+        if(jarakTujuan > 10){
+            jarakTujuan = (jarakTujuan - 9.3) * 1000.0;
+            this.ongkir = Math.round(jarakTujuan * 10.0) / 10.0;
+            
+        }
+
+        return this.ongkir;
     }
     
 }

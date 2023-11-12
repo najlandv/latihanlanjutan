@@ -1,50 +1,33 @@
-public class MemberGold extends Member implements CanGetDiskon, CanRequestCicilan, CanRequestDelivery{
-    
-    public MemberGold (){
-        super();
-    }
-    
-    
-    @Override //Polymorphism
-    public Integer hitungTotalBayar (Integer totalBelanja){
-        if (totalBelanja < 500000){
-            totalBelanja = totalBelanja - totalBelanja*0/100;
-            poin += totalBelanja /10000;
-        }
-        else if (totalBelanja <= 1000000){
-            totalBelanja = totalBelanja - totalBelanja*2/100;
-            poin += totalBelanja /10000;
-        }
-        else if (totalBelanja <= 7000000){
-            totalBelanja = totalBelanja - totalBelanja*4/100;
-            poin += totalBelanja /10000;
-        }
-        else if (totalBelanja > 7000000){
-            totalBelanja = totalBelanja - totalBelanja*6/100;
-            poin += totalBelanja /10000;
-        }
-        return totalBelanja;
+public class MemberGold extends Member implements CanRequestCicilan, CanRequestDelivery {
+
+    @Override
+    public Integer hitungTotalBayar(Integer jumlahBelanja) {
+        if (jumlahBelanja >= 500000 && jumlahBelanja <= 1000000){
+            this.totalBayar = jumlahBelanja - (jumlahBelanja * 2/100); }
+        else if (jumlahBelanja > 1000000 && jumlahBelanja <= 7000000){
+            this.totalBayar = jumlahBelanja - (jumlahBelanja * 4/100); }
+        else if (jumlahBelanja > 7000000){
+            this.totalBayar = jumlahBelanja - (jumlahBelanja * 6/100); }
+        else{
+        this.totalBayar = jumlahBelanja; }
+
+        return this.totalBayar;
     }
 
-    @Override //Polymorphism
-    public Double hitungOngkir (Double jarakTujuan){
-        double ongkir = 0.0;
-        if (jarakTujuan < 7){
-            ongkir = 0;
-        }
-        else if (jarakTujuan >= 7){
-            ongkir = 1000*(Math.ceil(jarakTujuan)-7);
-        }
-        return ongkir;
+    @Override
+    public Integer hitungCicilanPerBulan(Integer totalBelanja, Integer jumlahBulan) {
+        return hitungCicilanPerBulan(totalBelanja, jumlahBulan);
     }
-    
-    @Override //Polymorphism
-    public Integer hitungCicilanPerBulan (Integer totalBelanja, Integer jumlahBulan){
-        jumlahBulan = 24;
-        if (totalBelanja > 5000000){
-            return totalBelanja / jumlahBulan;
+
+    @Override
+    public Double hitungOngkir(Double jarakTujuan) {
+        if(jarakTujuan > 7){
+            jarakTujuan = (jarakTujuan - 6.3) * 1000.0;
+            this.ongkir = Math.round(jarakTujuan * 10.0) / 10.0;
+            
         }
-        return 0;
+
+        return this.ongkir;
     }
     
 }
