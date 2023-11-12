@@ -1,19 +1,19 @@
 public class MemberPlatinum extends Member implements CanDeposit, CanRequestCicilan, CanRequestDelivery {
     Integer saldo = 0;
 
-    @Override
+    @Override //Polimorphism
     public Integer deposit(Integer jumlahDeposit) {
         this.saldo = this.saldo + jumlahDeposit;
         return this.saldo;
     }
 
-    @Override
+    @Override //Polimorphism
     public Integer tarikTunai(Integer jumlahTarikTunai) {
         this.saldo = this.saldo - jumlahTarikTunai;
         return this.saldo;
     }
 
-    @Override
+    @Override //Polimorphism
     public Integer getSaldo() {
         return getSaldo();
     }
@@ -22,7 +22,7 @@ public class MemberPlatinum extends Member implements CanDeposit, CanRequestCici
         return this.saldo;
     }
 
-    @Override
+    @Override //Polimorphism
     public Integer hitungTotalBayar(Integer jumlahBelanja) {
         if (jumlahBelanja >= 500000 && jumlahBelanja <= 1000000) {
             this.totalBayar = jumlahBelanja - (jumlahBelanja * 3 / 100) ;
@@ -39,12 +39,12 @@ public class MemberPlatinum extends Member implements CanDeposit, CanRequestCici
         return this.totalBayar;
     }
 
-    @Override
+    @Override //Polimorphism
     public Integer hitungCicilanPerBulan(Integer totalBelanja, Integer jumlahBulan) {
         return hitungCicilanPerBulan(totalBelanja, jumlahBulan);
     }
 
-    @Override
+    @Override //Polimorphism
     public Double hitungOngkir(Double jarakTujuan) {
         if(jarakTujuan > 10){
             jarakTujuan = (jarakTujuan - 9.3) * 1000.0;

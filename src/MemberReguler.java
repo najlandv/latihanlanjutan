@@ -1,6 +1,6 @@
 public class MemberReguler extends Member{
 
-    @Override
+    @Override //Polimorphism
     public Integer hitungTotalBayar(Integer jumlahBelanja) {
         if (jumlahBelanja >= 500000 && jumlahBelanja <= 1000000){
             this.totalBayar = jumlahBelanja - (jumlahBelanja * 1/100); }
